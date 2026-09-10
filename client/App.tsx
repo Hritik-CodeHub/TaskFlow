@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ActivityIndicator, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { AuthContext, AuthProvider } from './src/context/AuthContext';
 import { ThemeProvider, useTheme } from './src/context/ThemeContext';
@@ -27,6 +27,10 @@ function AppContent() {
       <View style={[styles.container, { backgroundColor: colors.background }]}>
         <StatusBar barStyle={mode === 'dark' ? 'light-content' : 'dark-content'} />
         <View style={styles.loadingContainer}>
+          <Image
+            source={require('./src/assets/taskflow-splash.png')}
+            style={styles.logo}
+          />
           <ActivityIndicator size="large" color={colors.primary} />
           <Text style={[styles.loadingText, { color: colors.textPrimary }]}>
             Loading your workspace...
@@ -58,6 +62,11 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 16,
     fontWeight: '600',
+  },
+   logo: {
+    width: 180,
+    height: 180,
+    resizeMode: 'contain',
   },
 });
 
