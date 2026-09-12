@@ -12,11 +12,17 @@ TaskFlow is a full-stack task management app built with React Native (CLI + Type
 - Theme support with light/dark styling
 - Centralized Axios API client with normalized error handling
 
+## Live APK
+
+You can download the latest APK here:
+
+- https://drive.google.com/file/d/1t74o0V2VqhCroByqpPeOpmIV3uGgmelW/view?usp=sharing
+
 ## Tech Stack
 
 - Frontend: React Native CLI, TypeScript, Axios, React Native DateTimePicker
 - Backend: Node.js, Express, TypeScript, MongoDB, Mongoose
-- Authentication: JWT bearer tokens
+- Authentication: JWT tokens
 
 ## Project Structure
 
@@ -90,15 +96,6 @@ cd client
 npx react-native run-android
 ```
 
-## Screenshots
-
-> Add screenshots here as the app evolves, for example:
->
-> - Login screen
-> - Task dashboard with stats cards
-> - Task creation modal with date/time picker
-> - Task detail view
-
 ## Backend API
 
 The API runs locally at:
@@ -131,10 +128,3 @@ The API runs locally at:
 Authorization: Bearer <your-jwt-token>
 ```
 
-## Notes
-
-- The frontend uses the shared Axios instance from `client/src/api/apiClient.ts`.
-- API errors are normalized through the interceptor so the UI can present user-friendly messages.
-- Auth state is managed through `AuthContext`.
-- Task data fetching, filtering, and mutation logic now live directly in `client/src/screens/TasksScreen.tsx` instead of a separate task context provider.
-- The project includes repo-level and app-level `.gitignore` files to avoid committing generated artifacts, local environment files, and dependency folders.
