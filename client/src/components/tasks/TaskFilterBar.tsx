@@ -6,6 +6,19 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {
+  AlertTriangle,
+  ArrowDownRight,
+  ArrowUpRight,
+  BookOpen,
+  BriefcaseBusiness,
+  HeartPulse,
+  ListFilter,
+  Minus,
+  MoreHorizontal,
+  PiggyBank,
+  UserRound,
+} from 'lucide-react-native';
 import { useTheme } from '../../context/ThemeContext';
 import {
   TaskCategory,
@@ -31,6 +44,16 @@ const CATEGORIES: (TaskCategory | 'ALL')[] = [
   'OTHER',
 ];
 
+const CATEGORY_ICONS = {
+  ALL: ListFilter,
+  WORK: BriefcaseBusiness,
+  PERSONAL: UserRound,
+  STUDY: BookOpen,
+  HEALTH: HeartPulse,
+  FINANCE: PiggyBank,
+  OTHER: MoreHorizontal,
+} as const;
+
 const PRIORITIES: (TaskPriority | 'ALL')[] = [
   'ALL',
   'URGENT',
@@ -38,6 +61,14 @@ const PRIORITIES: (TaskPriority | 'ALL')[] = [
   'MEDIUM',
   'LOW',
 ];
+
+const PRIORITY_ICONS = {
+  ALL: ListFilter,
+  URGENT: AlertTriangle,
+  HIGH: ArrowUpRight,
+  MEDIUM: Minus,
+  LOW: ArrowDownRight,
+} as const;
 
 export const TaskFilterBar: React.FC<TaskFilterBarProps> = ({
   filters,
@@ -122,6 +153,7 @@ export const TaskFilterBar: React.FC<TaskFilterBarProps> = ({
             category === 'ALL'
               ? colors.primary
               : getCategoryColor(category, colors);
+          const CategoryIcon = CATEGORY_ICONS[category];
 
           return (
             <TouchableOpacity
@@ -136,18 +168,24 @@ export const TaskFilterBar: React.FC<TaskFilterBarProps> = ({
               ]}
               activeOpacity={0.7}
             >
-              <Text
-                style={[
-                  styles.chipText,
-                  typography.caption,
-                  {
-                    color: isActive ? '#FFFFFF' : colors.textSecondary,
-                    fontWeight: isActive ? '700' : '500',
-                  },
-                ]}
-              >
-                {getCategoryLabel(category)}
-              </Text>
+              <View style={styles.chipContent}>
+                <CategoryIcon
+                  size={14}
+                  color={isActive ? '#FFFFFF' : colors.textSecondary}
+                />
+                <Text
+                  style={[
+                    styles.chipText,
+                    typography.caption,
+                    {
+                      color: isActive ? '#FFFFFF' : colors.textSecondary,
+                      fontWeight: isActive ? '700' : '500',
+                    },
+                  ]}
+                >
+                  {getCategoryLabel(category)}
+                </Text>
+              </View>
             </TouchableOpacity>
           );
         })}
@@ -162,6 +200,7 @@ export const TaskFilterBar: React.FC<TaskFilterBarProps> = ({
           const isActive = filters.priority === priority;
           const chipColor =
             priority === 'ALL' ? colors.primary : getPriorityColor(priority, colors);
+          const PriorityIcon = PRIORITY_ICONS[priority];
 
           return (
             <TouchableOpacity
@@ -176,18 +215,24 @@ export const TaskFilterBar: React.FC<TaskFilterBarProps> = ({
               ]}
               activeOpacity={0.7}
             >
-              <Text
-                style={[
-                  styles.chipText,
-                  typography.caption,
-                  {
-                    color: isActive ? '#FFFFFF' : colors.textSecondary,
-                    fontWeight: isActive ? '700' : '500',
-                  },
-                ]}
-              >
-                {priority === 'ALL' ? 'All Priorities' : priority}
-              </Text>
+              <View style={styles.chipContent}>
+                <PriorityIcon
+                  size={14}
+                  color={isActive ? '#FFFFFF' : colors.textSecondary}
+                />
+                <Text
+                  style={[
+                    styles.chipText,
+                    typography.caption,
+                    {
+                      color: isActive ? '#FFFFFF' : colors.textSecondary,
+                      fontWeight: isActive ? '700' : '500',
+                    },
+                  ]}
+                >
+                  {priority === 'ALL' ? 'All Priorities' : priority}
+                </Text>
+              </View>
             </TouchableOpacity>
           );
         })}
@@ -242,6 +287,11 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 16,
     borderWidth: 1,
+  },
+  chipContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
   },
   chipText: {
     fontSize: 12,

@@ -8,7 +8,16 @@ import {
   RefreshControl,
   TextInput,
 } from 'react-native';
-import { ArrowUpDown, Plus, Search, X } from 'lucide-react-native';
+import {
+  AlertTriangle,
+  ArrowUpDown,
+  CheckCheck,
+  CircleDashed,
+  ClipboardList,
+  Plus,
+  Search,
+  X,
+} from 'lucide-react-native';
 import { taskApi } from '../api/taskApi';
 import { useTheme } from '../context/ThemeContext';
 import {
@@ -203,21 +212,25 @@ export const TasksScreen: React.FC = () => {
         label: 'Total',
         value: stats?.totalTasks ?? 0,
         accent: colors.primary,
+        icon: ClipboardList,
       },
       {
         label: 'Done',
         value: stats?.completedTasks ?? 0,
         accent: colors.success,
+        icon: CheckCheck,
       },
       {
         label: 'Open',
         value: stats?.pendingTasks ?? 0,
         accent: colors.warning,
+        icon: CircleDashed,
       },
       {
         label: 'Overdue',
         value: stats?.overdueTasks ?? 0,
         accent: colors.error,
+        icon: AlertTriangle,
       },
     ],
     [colors, stats]
@@ -263,9 +276,12 @@ export const TasksScreen: React.FC = () => {
               },
             ]}
           >
-            <Text style={[styles.summaryLabel, { color: colors.textMuted }]}>
-              {card.label}
-            </Text>
+            <View style={styles.summaryTopRow}>
+              <Text style={[styles.summaryLabel, { color: colors.textMuted }]}>
+                {card.label}
+              </Text>
+              <card.icon size={14} color={card.accent} />
+            </View>
             <Text
               style={[
                 styles.summaryValue,
@@ -512,6 +528,11 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
     elevation: 2,
+  },
+  summaryTopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   summaryLabel: {
     fontSize: 11,
