@@ -153,7 +153,7 @@ export const SortSelector: React.FC<SortSelectorProps> = ({
                                 { backgroundColor: colors.primary },
                               ]}
                             >
-                              <Text style={styles.smartBadgeText}>AI/Mix</Text>
+                              <Text style={styles.smartBadgeText}>Mix</Text>
                             </View>
                           )}
                         </View>

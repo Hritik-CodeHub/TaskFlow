@@ -524,7 +524,7 @@ export const AddEditTaskModal: React.FC<AddEditTaskModalProps> = ({
                   style={[styles.presetChip, { borderColor: colors.border }]}
                 >
                   <Text style={[styles.presetText, { color: colors.textSecondary }]}>
-                    Tomorrow EOD
+                    Tomorrow
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity

@@ -13,7 +13,6 @@ import { Moon, SunMedium } from 'lucide-react-native';
 import { useTheme } from '../context/ThemeContext';
 import { Input } from '../components/common/Input';
 import { Button } from '../components/common/Button';
-import { api } from '../api/apiClient';
 import { borderRadius, typography } from '../theme/typography';
 import { LoginCredentials, RegisterCredentials } from '../types/auth.types';
 import { authApi } from '../api/authApi';
@@ -48,42 +47,35 @@ export const AuthScreen: React.FC = () => {
     }
   };
 
-  const login = async (credentials: LoginCredentials): Promise<boolean> => {
+  const login = async (credentials: LoginCredentials): Promise<void> => {
     setIsLoading(true);
     setError(null);
     try {
       const response = await authApi.login(credentials);
       if (response.token && response.user) {
-        api.defaults.headers.common.Authorization = `Bearer ${response.token}`;
         setUserData(response.user, response.token);
         setIsLoading(false);
-        return true;
       }
-      throw new Error(response.message || 'Login failed');
     } catch (err: any) {
-      setError(err.message || 'An error occurred during login');
+      console.log(err);
+      setError('something wents wrong');
       setIsLoading(false);
-      return false;
     }
   };
 
-  const register = async (credentials: RegisterCredentials): Promise<boolean> => {
+  const register = async (credentials: RegisterCredentials): Promise<void> => {
     setIsLoading(true);
     setError(null);
     try {
       const response = await authApi.register(credentials);
       if (response.token && response.user) {
-        api.defaults.headers.common.Authorization = `Bearer ${response.token}`;
         setUserData(response.user, response.token);
-
         setIsLoading(false);
-        return true;
       }
-      throw new Error(response.message || 'Registration failed');
     } catch (err: any) {
-      setError(err.message || 'An error occurred during registration');
+      console.log(err);
+      setError('something wents wrong');
       setIsLoading(false);
-      return false;
     }
   };
 
